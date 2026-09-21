@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>节点图编辑器 · SVG / Canvas / Web Worker</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <header class="toolbar">
+    <div class="brand">
+      <span class="brand-dot"></span>
+      <strong>节点图编辑器</strong>
+    </div>
+
+    <div class="tool-group">
+      <label class="tool-label" for="algo-select">布局</label>
+      <select id="algo-select" title="布局算法">
+        <option value="dag">分层 DAG</option>
+        <option value="force">力导向</option>
+        <option value="grid">网格</option>
+        <option value="circle">环形</option>
+      </select>
+      <button id="btn-layout" class="btn btn-primary" title="在 Web Worker 中执行布局">自动布局</button>
+      <button id="btn-cancel-layout" class="btn" disabled>取消布局</button>
+      <button id="btn-fit" class="btn" title="快捷键 F">适配视图</button>
+    </div>
+
+    <div class="tool-group">
+      <label class="tool-label" for="sample-select">示例</label>
+      <select id="sample-select" title="载入示例数据">
+        <option value="">— 选择示例 —</option>
+        <option value="dag">业务流程 DAG</option>
+        <option value="force">力导向关系图(200 节点)</option>
+        <option value="circle">环形服务拓扑</option>
+        <option value="stress">压力测试(800 节点)</option>
+      </select>
+      <button id="btn-import" class="btn">导入 JSON</button>
+      <button id="btn-clear" class="btn btn-danger-ghost">清空</button>
+      <input type="file" id="file-input" accept="application/json,.json" hidden />
+    </div>
+
+    <div class="tool-group">
+      <button id="btn-export-svg" class="btn btn-primary">导出 SVG</button>
+      <button id="btn-export-png" class="btn">导出 PNG</button>
+      <button id="btn-help" class="btn btn-icon" title="帮助">?</button>
+    </div>
+  </header>
+
+  <div class="progress-bar" id="layout-progress" hidden>
+    <div class="progress-track">
+      <div class="progress-fill" id="progress-fill"></div>
+    </div>
+    <span class="progress-text" id="progress-text">布局计算中…</span>
+  </div>
+
+  <main class="stage" id="stage">
+    <canvas id="canvas" tabindex="0"></canvas>
+
+    <div class="help-panel" id="help-panel" hidden>
+      <h3>操作说明</h3>
+      <ul>
+        <li><b>拖拽节点</b>:按住节点移动,支持多选拖拽</li>
+        <li><b>连线</b>:从节点四周端口拖到目标节点</li>
+        <li><b>平移</b>:中键拖动,或按住空格后左键拖动,Shift+滚轮</li>
+        <li><b>缩放</b>:滚轮(以指针为中心)</li>
+        <li><b>选择</b>:点击选择,Ctrl/Shift 多选,空白处框选</li>
+        <li><b>新建节点</b>:双击空白处</li>
+        <li><b>删除</b>:Delete / Backspace</li>
+        <li><b>适配视图</b>:F;全选:Ctrl/Cmd+A;取消:Esc</li>
+        <li><b>导入</b>:点击导入按钮或直接把 JSON 拖入页面</li>
+      </ul>
+    </div>
+  </main>
+
+  <footer class="statusbar">
+    <span id="stat-count">节点 0 · 连线 0</span>
+    <span id="stat-layout" class="dim">布局:—</span>
+    <span id="stat-fps" class="dim">FPS —</span>
+    <span class="dim">双击空白新建节点 · 端口拖拽连线</span>
+  </footer>
+
+  <script src="js/geometry.js"></script>
+  <script src="js/layout.js"></script>
+  <script src="js/model.js"></script>
+  <script src="js/renderer.js"></script>
+  <script src="js/interaction.js"></script>
+  <script src="js/svg-exporter.js"></script>
+  <script src="js/toast.js"></script>
+  <script src="js/layout-runner.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>

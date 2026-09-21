@@ -1,0 +1,10 @@
+{
+  "name": "node-graph-editor",
+  "version": "1.0.0",
+  "private": true,
+  "description": "支持自动布局/拖拽/连线/SVG 导出的节点图编辑器(SVG + Canvas + Web Worker)",
+  "scripts": {
+    "test": "node tests/run-tests.js",
+    "start": "node tests/server.js"
+  }
+}
