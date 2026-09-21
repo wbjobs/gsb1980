@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Graph Editor — 节点 / 连线 / 布局 / 导出</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <header id="toolbar">
+    <span class="brand">Graph Editor</span>
+    <button id="btn-add-node" title="在画布中心添加节点">＋ 节点</button>
+    <button id="btn-connect" title="连线模式：从一个节点拖到另一个节点">🔗 连线</button>
+    <button id="btn-layout" title="力导图自动布局（Web Worker）">✨ 自动布局</button>
+    <button id="btn-export" title="导出当前图为 SVG 文件">⬇ 导出 SVG</button>
+    <button id="btn-clear" class="danger" title="清空画布">🗑 清空</button>
+    <span id="status" class="status"></span>
+  </header>
+
+  <main id="viewport">
+    <canvas id="grid-canvas"></canvas>
+    <canvas id="overlay-canvas"></canvas>
+    <svg id="graph-svg" xmlns="http://www.w3.org/2000/svg">
+      <g id="viewport-g">
+        <g id="edges-g"></g>
+        <g id="nodes-g"></g>
+      </g>
+    </svg>
+  </main>
+
+  <div id="toast-container"></div>
+
+  <script src="js/toast.js"></script>
+  <script src="js/graph.js"></script>
+  <script src="js/layout-core.js"></script>
+  <script src="js/layout.js"></script>
+  <script src="js/renderer.js"></script>
+  <script src="js/exporter.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
